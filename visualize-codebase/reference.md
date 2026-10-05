@@ -33,13 +33,16 @@ clarifying fact** — sometimes that is the boundary, sometimes it is a surprisi
 A monospace `<pre>` inside an `overflow-x:auto` container. Box-drawing characters, each path
 followed by a **3-6 word job**, annotations aligned in a column.
 
-    decky-plugin/
-    |-- src/                 the UI and all of the logic
-    |   |-- index.tsx        panel, presets, CSS builders
-    |   `-- types.d.ts       asset import shims only
-    |-- main.py              settings read and write, nothing else
-    |-- plugin.json          Decky store manifest
-    `-- rollup.config.js     re-export of @decky/rollup
+    myapp/
+    |-- src/                 the browser UI, bundled into dist
+    |   |-- App.jsx          top-level component and routing
+    |   `-- api.js           every call to the server is declared here
+    |-- server/              the HTTP API
+    |   |-- routes.js        one handler per endpoint
+    |   `-- db.js            the only file that opens a connection
+    |-- schema.sql           table definitions
+    |-- package.json         deps and the build script
+    `-- Dockerfile           how it ships
 
 Use real box-drawing glyphs in the output. **Depth 3 at most.**
 
@@ -55,16 +58,23 @@ flow and gotcha steps. Containment arrows are forbidden — see failure modes.
 Unity is the extreme case: `.meta` files are 1:1 sidecars and routinely outnumber real files.
 
 **Collapse bulk.** A leaf directory with more than ~5 files of one kind becomes one counted
-line: `|-- Assets/Sprites/      34 sprite files`
+line: `|-- assets/icons/      34 svg files`
 
-**Group siblings that form one mechanism.** `EnemyBrain`, `EnemyDecision`, `EnemyMotor`,
-`EnemyState` are one subsystem, not four unrelated entries. Keep them adjacent, give each a
-one-phrase role.
+**Group siblings that form one mechanism.** `AuthToken`, `AuthSession`, `AuthGuard` and
+`AuthStore` are one subsystem, not four unrelated entries. Keep them adjacent, and give each a
+one-phrase role rather than listing them flat.
 
 **Keep any roster short — at most 5 rows, one short line each.** A table of
-*path | why it matters* is allowed here for the few paths that matter most, and it sits outside
-the 3-sentence prose budget only because each cell is a single line. Two-sentence cells make it
-prose again, which breaks rule 6. A full per-file roster is its own "go deeper" step.
+*path | why it matters* is allowed here for the few paths that matter most:
+
+| path | why it matters |
+|---|---|
+| `server/db.js` | The only file that opens a connection; every query goes through it. |
+| `src/api.js` | Declares every server call, so it is the list of what the UI can do. |
+
+It sits outside the 3-sentence prose budget only because each cell is a single line.
+Two-sentence cells make it prose again, which breaks rule 6. A full per-file roster is its own
+"go deeper" step.
 
 ---
 
@@ -205,7 +215,7 @@ its place. Run this before every publish; it is a gate.
   reference document this skill exists to replace. One step, then stop and ask.
 - **Auto-proceeding.** Building the next step without being asked is the same failure wearing
   a different hat.
-- **Containment arrows.** `src/` pointing at `src/index.tsx` is nesting, not a relationship.
+- **Containment arrows.** `src/` pointing at `src/App.jsx` is nesting, not a relationship.
   The tree shows nesting; arrows are reserved for real mechanisms.
 - **Redrawing the file tree and calling it architecture.** Folders are filing. Name the
   responsibility each path actually holds.
@@ -270,7 +280,7 @@ a legitimate choice removes the guilt that otherwise attaches to stopping.
 exact executive-function task that is hardest.
 
 **10. A novelty hook in every step, spent from the three sentences.** *The weird part is that
-main.py never touches Steam.*
+the UI and the database never talk directly.*
 *Why:* curiosity is the most reliable fuel available, so every step needs one — but as one of
 the three sentences, never as a fourth. A boring step should be cut, not padded with a hook.
 

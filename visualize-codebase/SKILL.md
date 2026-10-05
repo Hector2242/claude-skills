@@ -34,8 +34,8 @@ wins. Full rationale for each is in `reference.md`.
 9. **No dead ends.** Every step ends in a clear next action or a clear exit. Never "and that
    is the codebase."
 10. **A novelty hook in every step, inside the three sentences.** *The weird part is that
-    main.py never touches Steam.* The hook replaces a sentence; it never adds one. Cut a step
-    that has nothing interesting in it.
+    the UI and the database never talk directly.* The hook replaces a sentence; it never adds
+    one. Cut a step that has nothing interesting in it.
 11. **Offload working memory.** More than three things becomes a table or a diagram, never
     prose.
 12. **Time estimates on every option.** "The achievement flow, ~2 min" beats "the achievement
@@ -137,7 +137,7 @@ chat show only the tour map — never the diagrams.
   ranges the current step actually traces.
 - **Drop** `.meta`, `.gitkeep`, `.gitattributes`, lockfiles, `*.min.*`, and generated output.
 - **Collapse homogeneous leaf directories** to one counted line:
-  `Assets/Sprites/ — 34 sprite files`.
+  `assets/icons/ — 34 svg files`.
 - **No subagents** under ~150 tracked source files; at most 2 above that.
 - **Skip `artifact-diagramming`** — it teaches hand-authored SVG this skill does not use. Keep
   `artifact-design`; it is required before writing any artifact.
