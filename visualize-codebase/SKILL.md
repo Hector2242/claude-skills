@@ -9,7 +9,7 @@ description: Explain a codebase step by step with visual Mermaid diagrams, one c
 diagram at a time, with the user choosing what comes next. Build everything at once only on
 explicit request, and warn once first — see step 7.
 
-## ADHD design rules
+## Design rules
 
 These outrank completeness. When a rule conflicts with showing more information, the rule
 wins. Full rationale for each is in `reference.md`.
